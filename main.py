@@ -7,16 +7,16 @@ class MeanReversionAlgorithm(QCAlgorithm):
     
     def Initialize(self) -> None:
         # Basic Setup
-        self.SetStartDate(2017, 1, 1)
+        self.SetStartDate(2021, 1, 1)
         self.SetEndDate(2023, 1, 1)
         self.SetCash(1000000)
 
         # Parameter
-        self.period = 30 # hr
-        self.resolution= Resolution.Daily
-        self.lookback_period = 20
-        self.buy_threshold = -1.0  # Z-score threshold to buy
-        self.sell_threshold = 1.0  # Z-score threshold to sell
+        self.period = 50 # hr
+        self.resolution= Resolution.Hour
+        self.lookback_period = 10
+        self.buy_threshold = -2  # Z-score threshold to buy
+        self.sell_threshold = 2  # Z-score threshold to sell
 
         # dictionaries
         self.smas={}
@@ -28,13 +28,11 @@ class MeanReversionAlgorithm(QCAlgorithm):
             "JNJ",
             "KO",
             "PEP",
-            "WMT",
-            "HD",
             "MCD",            
-            "CAT",
             "V",
             "MA"
         ]
+
         for t in self.tickers:
             self.AddEquity(t, self.resolution)
             self.smas[t] = self.SMA(t, self.period, self.resolution) 
